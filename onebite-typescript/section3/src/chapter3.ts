@@ -1,40 +1,62 @@
-// Unknown 타입
+// 기본 타입 간의 호환성
+let num1: number = 10;
+let num2: 10 = 10;
 
-function unknownExam() {
-  let a: unknown = 1;
-  let b: unknown = true;
-  let c: unknown = "hi";
-}
+// 업캐스팅
+num1 = num2;
 
-let unknownVar: unknown;
+// 객체 타입 간의 호환성
+// 어떤 객체 타입을 다른 객체 타입으로 취급해도 괜찮은가 ?
 
-// let num: number = unknownVar;
-// let str: string = unknownVar;
-// let bool: boolean = unknownVar;
+type Animal = {
+  name: string;
+  color: string;
+};
 
-// never 타입
-function neverExam() {
-  function neverFunc(): never {
-    while (true) {}
-  }
+type Dog = {
+  name: string;
+  color: string;
+  breed: string;
+};
 
-  let num: number = neverFunc();
-  let str: string = neverFunc();
-}
+let animal: Animal = {
+  name: "기린",
+  color: "yellow",
+};
 
-// void 타입
-function voidExam() {
-  function voidFunc(): void {
-    console.log("hi");
-    // void 가 undefined의 슈퍼타입이기 때문에 업 캐스팅
-    return undefined;
-  }
-}
+let dog: Dog = {
+  name: "순구",
+  color: "mix",
+  breed: "시고르자브종",
+};
 
-// any 타입
-function anyExam() {
-  let anyVar: any;
-  let unknownVar: unknown;
+animal = dog;
+//dog = animal;
 
-  anyVar = unknownVar;
-}
+type Book = {
+  name: string;
+  price: number;
+};
+
+type ProgrammingBook = {
+  name: string;
+  price: number;
+  skill: string;
+};
+
+let book: Book;
+let programmingBook: ProgrammingBook = {
+  name: "onebite TS",
+  price: 33000,
+  skill: "react.js",
+};
+
+book = programmingBook;
+// programmingBook = book;
+
+// 초과 프로퍼티 검사
+let book2: Book = {
+  name: "onebite TS",
+  price: 33000,
+  // skill: "react.js",
+};
